@@ -7,6 +7,9 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('application.index', {path: '/'});
+  this.route('github-users');
+  this.route('github-repos');
 });
 
 export default Router;

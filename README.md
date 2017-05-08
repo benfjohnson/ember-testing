@@ -1,50 +1,22 @@
-# testwell
+# Useful tests in Ember.js
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+When writing a complex web app, it's crucial that a developer writes tests which fully exercise the application business logic. JavaScript is a dynamic, flexible language, and while that can mean speedy development and a small learning curve, it also means that its interpreter is perfectly happy to run broken or flawed code that will break at runtime.
 
-## Prerequisites
+In Ember, the two most useful kinds of tests are Unit tests, which can be used to exercise nearly any unit of application logic (routes, controllers, models, mixins, etc.), and Integration tests, which we'll primarily use to exercise our Component logic. Ember also supports Acceptance tests, which test your clientside application end-to-end by building your entire application and running it in PhantomJS, but these are problematic for a number of reasons -- often require extensive mocking, run the slowest, can pass/fail inconsistently, etc. -- and should be used sparingly.
 
-You will need the following things properly installed on your computer.
+This repo contains a very small Ember application. The key structure is as follows:
 
-* [Git](https://git-scm.com/)
-* [Node.js](https://nodejs.org/) (with NPM)
-* [Ember CLI](https://ember-cli.com/)
-* [PhantomJS](http://phantomjs.org/)
+* The `application` route, and its `application.index` child route render our universal header/footer and a simple welcome message, respectively, and contain no application logic. These don't need to be tested beyond doing a simple assertion that elements rendered in our primary acceptance test.
 
-## Installation
+* The `github-users` route is where something interesting is going on. In addition to its route file which creates the page model, it also has a controller file which is creating some query parameters for searching and pagination. We're also using two components in this route -- `paginate-ctrl` and `user-search`.
 
-* `git clone <repository-url>` this repository
-* `cd testwell`
-* `npm install`
+* We have a number of test files that have been created and stubbed out for us as the `ember-cli` was used to generate our routes, controllers and components. We have the following integration test files:
 
-## Running / Development
+  * user-search-box-test.js
+  * paginate-ctrl-test.js
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+And the following unit test files:
 
-### Code Generators
+  * github-users-test.js (route)
+  * github-users-test.js (controller)
 
-Make use of the many generators for code, try `ember help generate` for more details
-
-### Running Tests
-
-* `ember test`
-* `ember test --server`
-
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
-
-* [ember.js](http://emberjs.com/)
-* [ember-cli](https://ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)

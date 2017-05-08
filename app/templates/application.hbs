@@ -1,5 +1,15 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
-{{!-- Feel free to remove this! --}}
-
-{{outlet}}
+<header>
+  <h1>Testing With Ember -- Github Lookup App</h1>
+  <nav>
+    <ul>
+      {{#link-to 'application.index'}}Home{{/link-to}}
+      {{#link-to 'github-users'}}User Search{{/link-to}}
+    </ul>
+  </nav>
+</header>
+<div class="app-body">
+  {{outlet}}
+</div>
+<footer>
+  <p>Avalara</p>
+</footer>

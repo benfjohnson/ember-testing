@@ -1,0 +1,7 @@
+<div class='user-list'>
+  <h2>All Users:</h2>
+  {{#each model as |user|}}
+    <div>{{user.login}}</div>
+  {{/each}}
+  {{paginate-ctrl since=(readonly since) updateSince=(action 'updateSince')}}
+</div>
