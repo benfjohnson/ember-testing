@@ -22,17 +22,21 @@ This repo contains a very small Ember application. The key structure is as follo
 
 * The `application` route, and its `application.index` child route render our universal header/footer and a simple welcome message, respectively, and contain no application logic. These don't need to be tested beyond doing a simple assertion that elements rendered in our primary acceptance test.
 
-* The `github-users` route is where something interesting is going on. In addition to its route file which creates the page model, it also has a controller file which is creating some query parameters for pagination. It's also using a component -- `paginate-ctrl`.
+* The `github-users` route makes a request to Github's developer API for a list of all users, and displays that list along with controls to navigate through its pages of data. It does this by retrieving the user data in the route's `model` hook, and managing the github query parameters necessary for data pagination in the route's controller file. It's also using a component -- `paginate-ctrl` -- for the actual pagination UI.
 
 * We have a number of test files that have been created and stubbed out for us as the `ember-cli` was used to generate our routes, controllers and components. We have the following integration test files:
 
   * paginate-ctrl-test.js
 
-And the following unit test files: 
+* And the following unit test files: 
 
   * github-users-test.js (route)
   * github-users-test.js (controller)
   * application/index-test.js
+
+## Running the app
+
+To run the application, `cd` into the root directory and run `ember server` and navigate to http://localhost:4200. You'll need to have `ember-cli` installed -- if you don't, grab it from yarn or npm. To run our tests we'll be writing, navigate to http://localhost:4200/tests.
 
 ## Test time
 
@@ -63,7 +67,7 @@ Now we've tested all the logic of our page's controller. Neat! That was the last
 
 * Controllers are only sometimes necessary (like when using query-params), and are good for saving values that don't quite fit with your core route model. A good example would be something like a `buttonIsDisabled` property that we initially set to true, which we'd potentially pass down to a component that would send updates to that value based on user interaction.
 
-* Components take values from our routes and route controllers, as well as actions they can call when they'd like the router or controller to change one or more of these values. They make these requests usually based on user interaction.
+* Components take values from our routes and route controllers, as well as actions they can call when they'd like the router or controller to change one or more of these values. This "data down, actions up" pattern is similar to React's one-way data binding. Ideally, our components aren't manipulating any of the data they receive from routes or controllers -- they're using the data for computing their own values, and for display, and then when something needs to change, calling actions passed to them from their route or controller to handle those changes.
 
 Because components are so easy to test, it's ideal to put most of our logic in them. Let's replace our generated 'it renders' test in the paginate-ctrl-test.js file with a better simple case:
 
